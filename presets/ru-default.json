@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "updated": "2026-10-04",
+  "locale": "ru",
+  "categories": [
+    {
+      "id": "gov",
+      "name": "Госуслуги и госсервисы",
+      "icon": "gov",
+      "packages": [
+        "ru.rostel",
+        "ru.mos.app",
+        "ru.spb.gov",
+        "com.mosmetro",
+        "ru.gosuslugi.mobile"
+      ]
+    },
+    {
+      "id": "banks",
+      "name": "Банки",
+      "icon": "bank",
+      "packages": [
+        "ru.sberbankmobile",
+        "ru.vtb24.mobilebanking.android",
+        "com.idamob.tinkoff.android",
+        "ru.alfabank.mobile.android",
+        "ru.gazprombank.android.mobilebank.app",
+        "com.rosbank.mobile",
+        "ru.raiffeisennews",
+        "ru.psbank"
+      ]
+    },
+    {
+      "id": "marketplaces",
+      "name": "Маркетплейсы",
+      "icon": "cart",
+      "packages": [
+        "ru.ozon.app.android",
+        "ru.wildberries",
+        "com.avito.android",
+        "ru.yandex.market",
+        "com.ebay.mobile",
+        "com.alibaba.aliexpresshd",
+        "ru.lamoda.android"
+      ]
+    },
+    {
+      "id": "ru-web",
+      "name": "Российские браузеры и сервисы",
+      "icon": "globe",
+      "packages": [
+        "com.yandex.browser",
+        "ru.yandex.searchplugin",
+        "com.vkontakte.android",
+        "ru.mail.mailapp",
+        "ru.ok.android"
+      ]
+    },
+    {
+      "id": "gov-media",
+      "name": "ГосСМИ и ТВ",
+      "icon": "tv",
+      "packages": [
+        "ru.rt.video",
+        "ru.vgtrk",
+        "ru.smi2.mobile",
+        "com.rt.mobile"
+      ]
+    },
+    {
+      "id": "taxi-food",
+      "name": "Такси и доставка",
+      "icon": "car",
+      "packages": [
+        "ru.yandex.taxi",
+        "com.citymobil",
+        "ru.deliveryclub",
+        "ru.foodfox.client"
+      ]
+    }
+  ]
+}

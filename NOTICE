@@ -1,0 +1,12 @@
+Linage Proot uses the following third-party components:
+
+- Xray-core — https://github.com/XTLS/Xray-core
+  License: Mozilla Public License 2.0 (MPL-2.0)
+
+- Flutter — https://flutter.dev
+  License: BSD-3-Clause
+
+- hev-socks5-tunnel — https://github.com/heiher/hev-socks5-tunnel
+  License: MIT
+
+Full license texts are available at the links above.
