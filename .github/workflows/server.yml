@@ -1,0 +1,73 @@
+name: server
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'server/**'
+      - '.github/workflows/server.yml'
+  pull_request:
+    paths:
+      - 'server/**'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Xray
+        run: |
+          set -e
+          VER=1.8.24
+          wget -q "https://github.com/XTLS/Xray-core/releases/download/v${VER}/Xray-linux-64.zip" -O /tmp/x.zip
+          mkdir -p /tmp/xray
+          unzip -q /tmp/x.zip -d /tmp/xray
+          chmod +x /tmp/xray/xray
+          /tmp/xray/xray version
+
+      - name: Render config from template
+        env:
+          PORT: "8080"
+          UUID: "11111111-2222-3333-4444-555555555555"
+          WSPATH: "/linage-test"
+        run: |
+          set -e
+          apt-get update -qq && apt-get install -y -qq gettext-base >/dev/null
+          envsubst < server/xray/config.tmpl.json > /tmp/config.json
+          cat /tmp/config.json
+
+      - name: Validate JSON
+        run: |
+          jq -e . /tmp/config.json > /dev/null
+          echo "JSON OK"
+
+      - name: Xray dry-run
+        run: |
+          set -e
+          /tmp/xray/xray run -config /tmp/config.json &
+          XPID=$!
+          sleep 3
+          if ! kill -0 $XPID 2>/dev/null; then
+            echo "Xray exited early — config invalid"
+            exit 1
+          fi
+          kill $XPID
+          echo "Xray started OK"
+
+  deploy:
+    needs: validate
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Render deploy
+        env:
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "RENDER_DEPLOY_HOOK not set, skipping deploy"
+            exit 0
+          fi
+          curl -fsS -X POST "$HOOK"
+          echo "Deploy triggered"
